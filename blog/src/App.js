@@ -32,6 +32,15 @@ function App() {
       <div className="black-nav">
         <h4>{logo}</h4>
       </div>
+      <button
+        onClick={() => {
+          let copy = [...글제목];
+          copy.sort();
+          글제목변경(copy);
+        }}
+      >
+        가나다순 정렬
+      </button>
       <div className="list">
         <h4>
           {글제목[0]}
@@ -47,6 +56,8 @@ function App() {
         </h4>
         <button
           onClick={() => {
+            // 리액트에서 array/object state를 수정하고 싶으면
+            // 독립적인 카피본을 만들어서 수정 [...]
             let copy = [...글제목];
             copy[0] = "여자코트 추천";
             글제목변경(copy);
