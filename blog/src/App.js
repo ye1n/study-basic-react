@@ -28,6 +28,8 @@ function App() {
   // 3. state에 따라 UI가 어떻게 보일지 작성 (조건문 등으로)
   let [modal, setModal] = useState(false);
 
+  let [title, setTitle] = useState(0);
+
   return (
     <div className="App">
       {/*
@@ -99,7 +101,7 @@ function App() {
       {글제목.map(function (a, i) {
         return (
           <div className="list" key={i}>
-            <h4 onClick={() => {setModal(!modal);}}>{글제목[i]}
+            <h4 onClick={() => {setModal(!modal);setTitle(i)}}>{글제목[i]}
               <span onClick={() => {
                   let copy = [...따봉];
                   copy[i]++;
@@ -115,7 +117,7 @@ function App() {
         // 부모 -> 자식 state 전송하는법
         // 1. <자식컴포넌트 작명={state이름}>
         // 2. props 파라미터 등록 후 props.작명 사용
-        modal == true ? <Modal color={'orange'} 글제목변경={글제목변경} 글제목={글제목} /> : null
+        modal == true ? <Modal 글제목변경={글제목변경} 글제목={글제목} title={title} /> : null
       }
     </div>
   );
@@ -128,8 +130,8 @@ function App() {
 
 function Modal(props) {
   return (
-    <div className="modal" style={{background : props.color}}>
-      <h4>{props.글제목[0]}</h4>
+    <div className="modal">
+      <h4>{props.글제목[props.title]}</h4>
       <p>날짜</p>
       <p>상세내용</p>
       <button onClick={() => {
