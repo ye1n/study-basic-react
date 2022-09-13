@@ -99,26 +99,23 @@ function App() {
       {글제목.map(function (a, i) {
         return (
           <div className="list" key={i}>
-            <h4>
-              {글제목[i]}
-              <span
-                onClick={() => {
+            <h4 onClick={() => {setModal(!modal);}}>{글제목[i]}
+              <span onClick={() => {
                   let copy = [...따봉];
                   copy[i]++;
                   따봉변경(copy);
-                }}
-              >
-                👍
-              </span>
-              {따봉[i]}
-            </h4>
+                }}>👍</span>{따봉[i]}</h4>
             <p>2월 17일 발행</p>
           </div>
         );
       })}
       {
         // 조건식 ? 참일때 실행할 코드 : 거짓일 때 실행할 코드
-        modal == true ? <Modal /> : null
+
+        // 부모 -> 자식 state 전송하는법
+        // 1. <자식컴포넌트 작명={state이름}>
+        // 2. props 파라미터 등록 후 props.작명 사용
+        modal == true ? <Modal color={'orange'} 글제목변경={글제목변경} 글제목={글제목} /> : null
       }
     </div>
   );
@@ -129,12 +126,18 @@ function App() {
 // 2. return() 안에 html 담기
 // 3. <함수명></함수명> 쓰기
 
-function Modal() {
+function Modal(props) {
   return (
-    <div className="modal">
-      <h4>제목</h4>
+    <div className="modal" style={{background : props.color}}>
+      <h4>{props.글제목[0]}</h4>
       <p>날짜</p>
       <p>상세내용</p>
+      <button onClick={() => {
+        // props.글제목변경(["여자코트 추천", "강남 우동맛집", "파이썬독학"])
+        let copy = [...props.글제목];
+        copy[0] = "여자코트 추천";
+        props.글제목변경(copy);
+      }}>글수정</button>
     </div>
   );
 }
