@@ -22,6 +22,12 @@ function App() {
   // state 변경하는 법 : 두번째 이름 사용
   let [따봉, 따봉변경] = useState(0);
 
+  // [동적인 UI 만드는 step]
+  // 1. html, css로 미리 디자인 완성
+  // 2. UI의 현재 상태를 state로 저장
+  // 3. state에 따라 UI가 어떻게 보일지 작성 (조건문 등으로)
+  let [modal, setModal] = useState(false);
+
   return (
     <div className="App">
       {/*
@@ -71,7 +77,13 @@ function App() {
         <p>2월 17일 발행</p>
       </div>
       <div className="list">
-        <h4>{글제목[1]}</h4>
+        <h4
+          onClick={() => {
+            setModal(!modal);
+          }}
+        >
+          {글제목[1]}
+        </h4>
         <p>2월 17일 발행</p>
       </div>
       <div className="list">
@@ -79,7 +91,10 @@ function App() {
         <p>2월 17일 발행</p>
       </div>
 
-      <Modal></Modal>
+      {
+        // 조건식 ? 참일때 실행할 코드 : 거짓일 때 실행할 코드
+        modal == true ? <Modal /> : null
+      }
     </div>
   );
 }
