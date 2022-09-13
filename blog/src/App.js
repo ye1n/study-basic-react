@@ -1,17 +1,26 @@
+/* eslint-disable */
+
 import logo from "./logo.svg";
 import "./App.css";
 import { useState } from "react";
 
 function App() {
   let post = "강남 우동 맛집";
+  let [logo, setLogo] = useState("ReactBlog");
 
   // 변수대신 state를 이용한 데이터 저장
-  let [글제목, b] = useState(["남자코트 추천", "강남 우동맛집", "파이썬독학"]);
-  let [logo, setLogo] = useState("ReactBlog");
+  let [글제목, 글제목변경] = useState([
+    "남자코트 추천",
+    "강남 우동맛집",
+    "파이썬독학",
+  ]);
 
   // let [a, c] = [1, 2];
   // let a = num[0];
   // let c = num[1];
+
+  // state 변경하는 법 : 두번째 이름 사용
+  let [따봉, 따봉변경] = useState(0);
 
   return (
     <div className="App">
@@ -24,7 +33,30 @@ function App() {
         <h4>{logo}</h4>
       </div>
       <div className="list">
-        <h4>{글제목[0]}</h4>
+        <h4>
+          {글제목[0]}
+          <span
+            // onClick 안에는 함수만
+            onClick={() => {
+              따봉변경(따봉++);
+            }}
+          >
+            👍
+          </span>
+          {따봉}
+        </h4>
+        <button
+          onClick={() => {
+            let copy = [...글제목];
+            copy[0] = "여자코트 추천";
+            글제목변경(copy);
+
+            // state변경함수 특징
+            // 기존state == 신규state의 경우 변경 안해줌
+          }}
+        >
+          제목 변경
+        </button>
         <p>2월 17일 발행</p>
       </div>
       <div className="list">
