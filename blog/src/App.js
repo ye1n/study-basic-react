@@ -27,8 +27,9 @@ function App() {
   // 2. UI의 현재 상태를 state로 저장
   // 3. state에 따라 UI가 어떻게 보일지 작성 (조건문 등으로)
   let [modal, setModal] = useState(false);
-
   let [title, setTitle] = useState(0);
+  let [입력값, 입력값변경] = useState('');
+  let [day, setDay] = useState(['2월 18일', '2월 18일', '2월 18일'])
 
   return (
     <div className="App">
@@ -106,11 +107,45 @@ function App() {
                   let copy = [...따봉];
                   copy[i]++;
                   따봉변경(copy);
-                }}>👍</span>{따봉[i]}</h4>
-            <p>2월 17일 발행</p>
+                }}> 👍</span>{따봉[i]}</h4>
+            <p>{day[i]} 발행</p>
+            <button onClick={() => {
+              let copy = [...글제목]
+              copy.splice(i, 1)
+              글제목변경(copy)
+            }}>삭제</button><br /><br />
           </div>
         );
       })}
+
+      <input onChange={(e) => {
+        입력값변경(e.target.value);
+      }} />
+
+      <button onClick={() => {
+        // 응용 문제 1. 공백입력후 추가 버튼 클릭 막기
+        if (입력값.trim() != "") {
+          let copy = [...글제목]
+          copy.push(입력값)
+          글제목변경(copy)
+  
+          // 응용 문제 2. 글이 추가되면 좋아요 기록도 추가
+          let like = [...따봉]
+          like.push('0')
+          따봉변경(like)
+
+          // 응용 문제 3. 글 추가한 날짜도 함께 저장
+          let today = new Date();
+          let todayToString = (today.getMonth() + 1) + "월 " + today.getDate() + "일";
+          let nowDay = [...day]
+          nowDay.push(todayToString)
+          setDay(nowDay)
+
+        } else {
+          alert("제목을 입력해주세요.")
+        }
+      }}>추가</button>
+
       {
         // 조건식 ? 참일때 실행할 코드 : 거짓일 때 실행할 코드
 
