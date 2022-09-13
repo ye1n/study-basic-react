@@ -2,7 +2,7 @@
 
 import logo from "./logo.svg";
 import "./App.css";
-import { useState } from "react";
+import React, { useState } from "react";
 
 function App() {
   let post = "강남 우동 맛집";
@@ -154,6 +154,8 @@ function App() {
         // 2. props 파라미터 등록 후 props.작명 사용
         modal == true ? <Modal 글제목변경={글제목변경} 글제목={글제목} title={title} /> : null
       }
+
+      {/* <Modal2/> */}
     </div>
   );
 }
@@ -177,6 +179,26 @@ function Modal(props) {
       }}>글수정</button>
     </div>
   );
+}
+
+// 예전 리액트의 class 문법 (참고용)
+class Modal2 extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name : 'kim',
+      age : 20
+    }
+  }
+  render() {
+    return (
+      <div>안녕 {this.state.age}
+        <button onClick={() => {
+          this.setState({age : 21})
+        }}>버튼</button>
+      </div>
+    )
+  }
 }
 
 export default App;
