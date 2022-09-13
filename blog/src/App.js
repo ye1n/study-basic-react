@@ -20,7 +20,7 @@ function App() {
   // let c = num[1];
 
   // state 변경하는 법 : 두번째 이름 사용
-  let [따봉, 따봉변경] = useState(0);
+  let [따봉, 따봉변경] = useState([0, 0, 0]);
 
   // [동적인 UI 만드는 step]
   // 1. html, css로 미리 디자인 완성
@@ -47,7 +47,7 @@ function App() {
       >
         가나다순 정렬
       </button>
-      <div className="list">
+      {/* <div className="list">
         <h4>
           {글제목[0]}
           <span
@@ -89,8 +89,33 @@ function App() {
       <div className="list">
         <h4>{글제목[2]}</h4>
         <p>2월 17일 발행</p>
-      </div>
+      </div> */}
 
+      {/* map() 사용법 
+      1. array 자료 갯수만큼 내부코드 실행
+      2. return 오른쪽에 있는걸 array로 담아줌
+      3. 유용한 파라미터 2개 사용가능 */}
+
+      {글제목.map(function (a, i) {
+        return (
+          <div className="list" key={i}>
+            <h4>
+              {글제목[i]}
+              <span
+                onClick={() => {
+                  let copy = [...따봉];
+                  copy[i]++;
+                  따봉변경(copy);
+                }}
+              >
+                👍
+              </span>
+              {따봉[i]}
+            </h4>
+            <p>2월 17일 발행</p>
+          </div>
+        );
+      })}
       {
         // 조건식 ? 참일때 실행할 코드 : 거짓일 때 실행할 코드
         modal == true ? <Modal /> : null
