@@ -59,6 +59,11 @@ function App() {
           <Route path="location" element={<div>주소</div>} />
         </Route>
 
+        <Route path="/event" element={<div><h4>오늘의 이벤트</h4><Outlet /></div>} >
+          <Route path="one" element={<p>첫 주문시 양배추즙 서비스</p>} />
+          <Route path="two" element={<p>생일기념 쿠폰받기</p>} />
+        </Route>
+
         {/* * : path 지정해준 경로 외에 보여줄 페이지 */}
         < Route path="*" element={<div>404 올바르지 않은 접근입니다.</div>}></Route>
       </Routes>
