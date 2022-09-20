@@ -51,7 +51,9 @@ function App() {
             </Container>
           </div>
         } />
-        <Route path="/detail" element={<Detail />} />
+
+        {/* :id -> 주소창에 /detail/아무거나 입력했을 때 */}
+        <Route path="/detail/:id" element={<Detail shoes={shoes} />} />
 
         {/* 3. Nested Routes */}
         <Route path="/about" element={<About />} >
