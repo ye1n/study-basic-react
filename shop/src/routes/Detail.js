@@ -40,14 +40,23 @@ function Detail(props) {
     // let 찾은상품 = props.shoes.find(function (x) { return x.id == id });
     let 찾은상품 = props.shoes.find((x) => x.id == id);
 
+    let [alertB, setAlertB] = useState(true);
+    let [num, setNum] = useState('');
+
     // 컴포넌트의 useEffect : 요즘 방식
     // useEffect 안에 있는 코드는 html 렌더링 후에 동작 (어려운 연산, 서버에서 데이터 가져오는 작업, 타이머 사용 코드)
     useEffect(()=>{
         // mount, update 시 실행 됨
-        setTimeout(()=>{setAlert(false)}, 2000);
-    })
+        let timer = setTimeout(()=>{setAlertB(false)}, 2000);
 
-    let [alert, setAlert] = useState(true);
+        if(isNaN(num) == true) {
+            alert('숫자를 입력해주세요.');
+        }
+        // clean up function : useEffect 안에 코드 실행하기 전에 동작할 코드 작성, mount시 실행 안됨, unmount시 1회 실행 됨
+        return ()=> {
+            clearTimeout(timer);
+        }
+    }, [num])  // []에 있는 변수나 state 가 변할 때만 useEffect 안의 코드를 실행, 비어있다면 mount시 1회 실행
 
     return (
         <div className="container">
@@ -56,8 +65,11 @@ function Detail(props) {
             <YellowBtn bg="orange">버튼</YellowBtn> */}
 
             {
-                alert == true ? <div className="alert alert-warning">2초 이내 구매시 할인</div> : null
+                alertB == true ? <div className="alert alert-warning">2초 이내 구매시 할인</div> : null
             }
+
+            {/* 오늘의 숙제 : 유저가 input에 숫자말고 다른걸 입력하면 alert창 띄우기 */}
+            <input onChange={(e)=>{setNum(e.target.value)}} />
 
             <div className="row">
                 <div className="col-md-6">
