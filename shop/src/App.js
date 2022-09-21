@@ -9,9 +9,15 @@ import axios from 'axios';
 {/* public 폴더 안 이미지 사용: {process.env.PUBLIC_URL + '/이미지 경로'} */ }
 
 function App() {
-
+  
   let [shoes, setShoes] = useState(data);
   let navigate = useNavigate();  // 1. 페이지 이동을 도와주는 useNavigate();
+  
+  // 응용문제 1 : 버튼 2회 누르면 7,8,9번 상품 서버에서 불러오기 구현
+  let [clickCount, setClickCount] = useState(1);
+  
+  // 응용문제 3 : 버튼 누르면 ajax 요청이 성공/실패 하기 전까지 로딩중 메시지 띄우기
+  let [loading, setLoading] = useState(false);
 
   return (
     <div className="App">
@@ -56,16 +62,37 @@ function App() {
               // 1. XMLHttpRequest
               // 2. fetch()
               // 3. axios 등 외부라이브러리
-              axios.get('https://codingapple1.github.io/shop/data2.json').then((result)=>{
-                let copy = [...shoes, ...result.data];
-                setShoes(copy);
-                console.log(shoes);
-              })
-              // ajax 요청 실패했을 경우 예외 처리
-              .catch(()=>{
-                console.log('fail');
-              })
+              setClickCount(clickCount+=1);
+              setLoading(true);
+
+              // 응용문제 2 : 버튼 3회 누르면 더이상 상품이 없다고 알려주기
+              if (clickCount <= 3) {
+                axios.get('https://codingapple1.github.io/shop/data'+clickCount+'.json').then((result)=>{
+                  setLoading(false);
+                  let copy = [...shoes, ...result.data];
+                  setShoes(copy);
+                })
+                // ajax 요청 실패했을 경우 예외 처리
+                .catch(()=>{
+                  setLoading(false);
+                  console.log('fail');
+                })
+
+
+                // post 요청
+                // axios.post('/응답할경로', {'data':'응답할데이터'})
+
+                // 동시에 여러 ajax 요청
+                // Promise.all( [axios.get('URL1'), axios.get('URL2')] );
+
+              }else {
+                setLoading(false);
+                alert('더이상 불러올 상품이 존재하지 않습니다.');
+              }
             }}>버튼</button>
+            {
+              loading == true ? <p>로딩중 . . .</p> : null
+            }
           </div>
         } />
 
