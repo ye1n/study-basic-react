@@ -5,11 +5,12 @@ import { useState } from 'react';
 import data from './data.js';
 import Detail from './routes/Detail.js';
 import { Route, Routes, Link, useNavigate, Outlet } from 'react-router-dom';
+import axios from 'axios';
 {/* public 폴더 안 이미지 사용: {process.env.PUBLIC_URL + '/이미지 경로'} */ }
 
 function App() {
 
-  let [shoes] = useState(data);
+  let [shoes, setShoes] = useState(data);
   let navigate = useNavigate();  // 1. 페이지 이동을 도와주는 useNavigate();
 
   return (
@@ -49,6 +50,22 @@ function App() {
                 }
               </Row>
             </Container>
+            <button onClick={()=>{
+              // ajax 사용하면 새로고침 없이도 Get/Post 요청 가능
+              // ajax 쓰려면 옵션 3개 중 택1
+              // 1. XMLHttpRequest
+              // 2. fetch()
+              // 3. axios 등 외부라이브러리
+              axios.get('https://codingapple1.github.io/shop/data2.json').then((result)=>{
+                let copy = [...shoes, ...result.data];
+                setShoes(copy);
+                console.log(shoes);
+              })
+              // ajax 요청 실패했을 경우 예외 처리
+              .catch(()=>{
+                console.log('fail');
+              })
+            }}>버튼</button>
           </div>
         } />
 
@@ -69,7 +86,6 @@ function App() {
         {/* * : path 지정해준 경로 외에 보여줄 페이지 */}
         < Route path="*" element={<div>404 올바르지 않은 접근입니다.</div>}></Route>
       </Routes>
-
     </div>
   );
 }
