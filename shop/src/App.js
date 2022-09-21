@@ -1,4 +1,4 @@
-// eslint-disable
+/* eslint-disable */
 import './App.css';
 import { Row, Col, Container, Navbar, Nav } from 'react-bootstrap';
 import { useState } from 'react';
