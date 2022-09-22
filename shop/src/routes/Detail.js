@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from 'styled-components';
+import {Nav} from 'react-bootstrap'
 
 // build 후 css 파일 오염 방지하려면 컴포넌트.module.css
 
@@ -58,6 +59,8 @@ function Detail(props) {
         }
     }, [num])  // []에 있는 변수나 state 가 변할 때만 useEffect 안의 코드를 실행, 비어있다면 mount시 1회 실행
 
+    let [tab, setTab] = useState(0);
+
     return (
         <div className="container">
 
@@ -82,6 +85,24 @@ function Detail(props) {
                     <button className="btn btn-danger">주문하기</button>
                 </div>
             </div>
+
+            {/* 탭 UI             defaultActiveKey : 기본으로 눌려있는 키*/}
+            <Nav variant="tabs"  defaultActiveKey="link0">
+                <Nav.Item>
+                    <Nav.Link eventKey="link0" onClick={()=>{setTab(0)}}>버튼0</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                    <Nav.Link eventKey="link1" onClick={()=>{setTab(1)}}>버튼1</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                    <Nav.Link eventKey="link2" onClick={()=>{setTab(2)}}>버튼2</Nav.Link>
+                </Nav.Item>
+            </Nav>
+            {
+                // tab == 0 ? <div>내용0</div> : (tab == 1 ? <div>내용1</div> : (tab == 2 ? <div>내용2</div> : null))
+                [ <div>내용0</div>, <div>내용1</div>, <div>내용2</div> ][tab]
+            }
+
         </div>
     )
 }
