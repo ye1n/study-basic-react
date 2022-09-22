@@ -6,6 +6,8 @@ import data from './data.js';
 import Detail from './routes/Detail.js';
 import { Route, Routes, Link, useNavigate, Outlet } from 'react-router-dom';
 import axios from 'axios';
+import Cart from './routes/Cart.js';
+
 {/* public 폴더 안 이미지 사용: {process.env.PUBLIC_URL + '/이미지 경로'} */ }
 
 // context API
@@ -111,6 +113,8 @@ function App() {
             <Detail shoes={shoes} />
           </Context1.Provider>
         } />
+
+        <Route path="/cart" element={ <Cart/> } /> 
 
         {/* 3. Nested Routes */}
         <Route path="/about" element={<About />} >
