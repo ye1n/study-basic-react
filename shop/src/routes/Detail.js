@@ -1,8 +1,9 @@
 /* eslint-disable */
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from 'styled-components';
-import {Nav} from 'react-bootstrap'
+import {Nav} from 'react-bootstrap';
+import {Context1} from './../App.js';
 
 // build 후 css 파일 오염 방지하려면 컴포넌트.module.css
 
@@ -34,6 +35,12 @@ let YellowBtn = styled.button`
 // }
 
 function Detail(props) {
+
+    // context 안에 있던 state 사용하려면
+    // 1. 만들어둔 context를 import
+    // 2. useContext() 안에 넣는다
+
+    let context = useContext(Context1);
 
     let { id } = useParams();   // 현재 /:url파라미터 자리에 유저가 입력한 값을 가져온다.
 
@@ -71,6 +78,7 @@ function Detail(props) {
 
     return (
         <div className={`container start ${fadeMain}`}>
+            {/* {context.stock} */}
 
             {/* <YellowBtn bg="blue">버튼</YellowBtn>
             <YellowBtn bg="orange">버튼</YellowBtn> */}
@@ -106,12 +114,12 @@ function Detail(props) {
                     <Nav.Link eventKey="link2" onClick={()=>{setTab(2)}}>버튼2</Nav.Link>
                 </Nav.Item>
             </Nav>
-            <Transition tab={tab}/>
+            <TabContent tab={tab}/>
         </div>
     )
 }
 
-function Transition({tab}) {
+function TabContent({tab, shoes}) {
 
     let [fade, setFade] = useState('');
 

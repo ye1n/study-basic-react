@@ -1,12 +1,19 @@
 /* eslint-disable */
 import './App.css';
 import { Row, Col, Container, Navbar, Nav } from 'react-bootstrap';
-import { useState } from 'react';
+import { createContext, useState } from 'react';
 import data from './data.js';
 import Detail from './routes/Detail.js';
 import { Route, Routes, Link, useNavigate, Outlet } from 'react-router-dom';
 import axios from 'axios';
 {/* public 폴더 안 이미지 사용: {process.env.PUBLIC_URL + '/이미지 경로'} */ }
+
+// context API
+// 셋팅1. createContext()
+// 셋팅2. <Context>로 원하는 컴포넌트 감싸기
+// 셋팅3. value={{공유를 원하는 state 적기}}
+
+export let Context1 = createContext();
 
 function App() {
   
@@ -18,6 +25,8 @@ function App() {
   
   // 응용문제 3 : 버튼 누르면 ajax 요청이 성공/실패 하기 전까지 로딩중 메시지 띄우기
   let [loading, setLoading] = useState(false);
+
+  let [stock] = useState([10, 11, 12])
 
   return (
     <div className="App">
@@ -97,7 +106,11 @@ function App() {
         } />
 
         {/* :id -> 주소창에 /detail/아무거나 입력했을 때 */}
-        <Route path="/detail/:id" element={<Detail shoes={shoes} />} />
+        <Route path="/detail/:id" element={
+          <Context1.Provider value={{stock}}>
+            <Detail shoes={shoes} />
+          </Context1.Provider>
+        } />
 
         {/* 3. Nested Routes */}
         <Route path="/about" element={<About />} >
