@@ -43,6 +43,8 @@ function Detail(props) {
 
     let [alertB, setAlertB] = useState(true);
     let [num, setNum] = useState('');
+    let [tab, setTab] = useState(0);
+    let [fadeMain, setFadeMain] = useState('');
 
     // 컴포넌트의 useEffect : 요즘 방식
     // useEffect 안에 있는 코드는 html 렌더링 후에 동작 (어려운 연산, 서버에서 데이터 가져오는 작업, 타이머 사용 코드)
@@ -59,10 +61,16 @@ function Detail(props) {
         }
     }, [num])  // []에 있는 변수나 state 가 변할 때만 useEffect 안의 코드를 실행, 비어있다면 mount시 1회 실행
 
-    let [tab, setTab] = useState(0);
+    useEffect(()=>{
+        setFadeMain('end');
+        return ()=> {
+            setFadeMain('');
+        }
+    }, [])
+
 
     return (
-        <div className="container">
+        <div className={`container start ${fadeMain}`}>
 
             {/* <YellowBtn bg="blue">버튼</YellowBtn>
             <YellowBtn bg="orange">버튼</YellowBtn> */}
@@ -98,11 +106,27 @@ function Detail(props) {
                     <Nav.Link eventKey="link2" onClick={()=>{setTab(2)}}>버튼2</Nav.Link>
                 </Nav.Item>
             </Nav>
-            {
-                // tab == 0 ? <div>내용0</div> : (tab == 1 ? <div>내용1</div> : (tab == 2 ? <div>내용2</div> : null))
-                [ <div>내용0</div>, <div>내용1</div>, <div>내용2</div> ][tab]
-            }
+            <Transition tab={tab}/>
+        </div>
+    )
+}
 
+function Transition({tab}) {
+
+    let [fade, setFade] = useState('');
+
+    useEffect(()=>{
+        setTimeout(()=>{
+            setFade('end');
+        }, 100)
+        return ()=>{
+            setFade('');
+        }
+    },[tab])
+
+    return (
+        <div className={`start ${fade}`}>
+            {[<div>내용0</div>, <div>내용1</div>, <div>내용2</div> ][tab]}
         </div>
     )
 }
