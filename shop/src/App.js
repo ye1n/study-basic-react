@@ -78,7 +78,21 @@ function App() {
 
               // 응용문제 2 : 버튼 3회 누르면 더이상 상품이 없다고 알려주기
               if (clickCount <= 3) {
-                axios.get('https://codingapple1.github.io/shop/data'+clickCount+'.json').then((result)=>{
+                // axios({
+                //   method : 'GET',
+                //   timeout : 100,
+                //   url : 'https://codingapple1.github.io/shop/data'+clickCount+'.json',
+                // }).then((result)=>{
+                //   setLoading(false);
+                //   let copy = [...shoes, ...result.data];
+                //   setShoes(copy);
+                // }).catch(()=>{
+                //   // ajax 요청 실패했을 경우 예외 처리
+                //   setLoading(false);
+                //   console.log('ajax 데이터 요청 실패');
+                // })
+                
+                axios.get('https://codingapple1.github.io/shop/data'+clickCount+'.json', {timeout : 5000}).then((result)=>{
                   setLoading(false);
                   let copy = [...shoes, ...result.data];
                   setShoes(copy);
@@ -86,7 +100,7 @@ function App() {
                 // ajax 요청 실패했을 경우 예외 처리
                 .catch(()=>{
                   setLoading(false);
-                  console.log('fail');
+                  console.log('ajax 데이터 요청 실패');
                 })
 
 
