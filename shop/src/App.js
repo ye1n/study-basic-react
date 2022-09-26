@@ -42,11 +42,11 @@ function App() {
           <Nav className="me-auto">
             {/* 페이지 앞, 뒤로가기 : navigate(1), navigate(-1)  */}
             <Nav.Link onClick={() => { navigate('/home') }}>Home</Nav.Link>
-            <Nav.Link onClick={() => { navigate('/detail') }}>Cart</Nav.Link>
+            <Nav.Link onClick={() => { navigate('/cart') }}>Cart</Nav.Link>
           </Nav>
         </Container>
       </Navbar>
-
+      
       {/* 라우터로 페이지 나누는 법
       1. 상단에 컴포넌트 import
       2. <Routes> 안에 <Route>
@@ -102,7 +102,6 @@ function App() {
                   setLoading(false);
                   console.log('ajax 데이터 요청 실패');
                 })
-
 
                 // post 요청
                 // axios.post('/응답할경로', {'data':'응답할데이터'})
