@@ -18,6 +18,13 @@ import Cart from './routes/Cart.js';
 export let Context1 = createContext();
 
 function App() {
+
+  // localStorage
+  let obj = {name : 'kim'};
+  localStorage.setItem('data', JSON.stringify(obj));
+  // JSON.stringify() : array/object -> JSON 변환
+  // JSON.parse() : JSON -> arrat/object
+
   
   let [shoes, setShoes] = useState(data);
   let navigate = useNavigate();  // 1. 페이지 이동을 도와주는 useNavigate();
