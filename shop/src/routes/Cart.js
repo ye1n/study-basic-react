@@ -1,7 +1,7 @@
 /* eslint-disable */
 import {Table, Button} from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import { countUp } from '../store/store.js';
+import { countUp, deleteList } from '../store/store.js';
 import {changeAge, changeName} from './../store/userSlice.js'
 
 function Cart(){
@@ -19,7 +19,8 @@ function Cart(){
                         <th>#</th>
                         <th>상품명</th>
                         <th>수량</th>
-                        <th>변경하기</th>
+                        <th>수량추가</th>
+                        <th>삭제</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -34,6 +35,9 @@ function Cart(){
                         <td><Button variant="secondary" onClick={()=>{
                           dispatch(countUp(state.cartList[i].id))
                         }}>+</Button></td>
+                        <td><Button variant="secondary" onClick={()=>{
+                          dispatch(deleteList(state.cartList[i].id))
+                        }}>삭제</Button></td>
                       </tr>
                     );
                   })
