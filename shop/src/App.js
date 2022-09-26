@@ -38,7 +38,7 @@ function App() {
 
       <Navbar bg="light" variant="light">
         <Container>
-          <Navbar.Brand href="/">ShoeShop</Navbar.Brand>
+          <Navbar.Brand onClick={() => { navigate('/') }}>ShoeShop</Navbar.Brand>
           <Nav className="me-auto">
             {/* 페이지 앞, 뒤로가기 : navigate(1), navigate(-1)  */}
             <Nav.Link onClick={() => { navigate('/home') }}>Home</Nav.Link>

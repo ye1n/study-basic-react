@@ -4,6 +4,8 @@ import { useParams } from "react-router-dom";
 import styled from 'styled-components';
 import {Nav} from 'react-bootstrap';
 import {Context1} from './../App.js';
+import { useDispatch, useSelector } from "react-redux";
+import { addList } from "../store/store.js";
 
 // build 후 css 파일 오염 방지하려면 컴포넌트.module.css
 
@@ -35,6 +37,8 @@ let YellowBtn = styled.button`
 // }
 
 function Detail(props) {
+
+    let dispatch = useDispatch();
 
     // context 안에 있던 state 사용하려면
     // 1. 만들어둔 context를 import
@@ -98,7 +102,9 @@ function Detail(props) {
                     <h4 className="pt-5">{찾은상품.title}</h4>
                     <p>{찾은상품.content}</p>
                     <p>{찾은상품.price}원</p>
-                    <button className="btn btn-danger">주문하기</button>
+                    <button className="btn btn-danger" onClick={()=>{
+                        dispatch(addList(찾은상품))
+                    }}>주문하기</button>
                 </div>
             </div>
 
