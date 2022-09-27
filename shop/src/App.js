@@ -7,6 +7,7 @@ import Detail from './routes/Detail.js';
 import { Route, Routes, Link, useNavigate, Outlet } from 'react-router-dom';
 import axios from 'axios';
 import Cart from './routes/Cart.js';
+import {useQuery} from 'react-query';
 // 혼자 추가로 구현해 볼 것
 
 // 상품 검색기능 상품 제목 검색시 해당 상품의 상세페이지로 이동
@@ -41,6 +42,20 @@ function App() {
 
   let [stock] = useState([10, 11, 12])
 
+  // useQuery 사용시
+  // 장점 1. 성공/실패/로딩중 쉽게 파악가능
+  // 장점 2. 틈만나면 자동으로 재요청해줌
+  // 장점 3. 실패시 retry 알아서 해줌
+  // 장점 4. ajax로 가져온 결과는 state 공유 안해도 됨
+  let result = useQuery('naming', ()=>
+    axios.get('https://codingapple1.github.io/userdata.json')
+    .then((a)=>{
+      console.log('ajax 요청됨')
+      return a.data
+    }),
+    {staleTime : 200}  // refetch
+  )
+
   return (
     <div className="App">
 
@@ -58,6 +73,9 @@ function App() {
             <Nav.Link onClick={() => { navigate('/detail/1') }}>Detail1</Nav.Link>
             <Nav.Link onClick={() => { navigate('/detail/2') }}>Detail2</Nav.Link>
             <Nav.Link onClick={() => { navigate('/detail/3') }}>Detail3</Nav.Link>
+          </Nav>
+          <Nav className='ms-auto'>
+            {result.isLoading == true ? '로딩중 . . .': '반갑습니다 '+result.data.name}
           </Nav>
         </Container>
       </Navbar>
