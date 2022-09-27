@@ -22,7 +22,7 @@ let cartList = createSlice({
     // 응용2. 주문하기 버튼 누를 때 이미 상품이 state안에 있으면 추가가 아니라 기존 항목 수량 증가만 (id로 비교)
     addList(state, action){
       let find = state.find((x) => x.id == action.payload.id)
-      if(find == undefined){
+      if(find == null){
         // 상품이 장바구니에 담기지 않음
         state.push(action.payload);
         console.log('장바구니에 담음')

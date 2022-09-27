@@ -38,16 +38,18 @@ let YellowBtn = styled.button`
 
 function Detail(props) {
 
-    // useEffect(()=>{
-    //     let list = localStorage.getItem('watched')
-    //     list = JSON.parse(list)
-    //     list.push(찾은상품.id)
+    // localStorage 사용법
+    useEffect(()=>{
+        let list = localStorage.getItem('watched')
+        list = JSON.parse(list) // JSON.parse() : JSON -> arrat/object
+        list.push(찾은상품.id)
 
-    //     //Set으로 바꿨다가 다시 array로 만들기
-    //     list = new Set(list)
-    //     list = Array.from(list)
-    //     localStorage.setItem('watched', JSON.stringify(list))
-    // }, [])
+        //Set으로 바꿨다가 다시 array로 만들기
+        list = new Set(list) // Set : array에서 쉬운 중복제거 방법
+        list = Array.from(list) // array -> Set(중복을 없앤 array) -> array
+
+        localStorage.setItem('watched', JSON.stringify(list)) // JSON.stringify() : array/object -> JSON 변환
+    }, [])
 
     let dispatch = useDispatch();
 

@@ -1,12 +1,17 @@
 /* eslint-disable */
 import './App.css';
 import { Row, Col, Container, Navbar, Nav } from 'react-bootstrap';
-import { createContext, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import data from './data.js';
 import Detail from './routes/Detail.js';
 import { Route, Routes, Link, useNavigate, Outlet } from 'react-router-dom';
 import axios from 'axios';
 import Cart from './routes/Cart.js';
+// 혼자 추가로 구현해 볼 것
+
+// 상품 검색기능 상품 제목 검색시 해당 상품의 상세페이지로 이동
+// 메인화면에서 상품 클릭하면 해당 상품의 상세페이지로 이동
+// 최근 본 상품 페이지
 
 {/* public 폴더 안 이미지 사용: {process.env.PUBLIC_URL + '/이미지 경로'} */ }
 
@@ -19,12 +24,11 @@ export let Context1 = createContext();
 
 function App() {
 
-  // localStorage
-  let obj = {name : 'kim'};
-  localStorage.setItem('data', JSON.stringify(obj));
-  // JSON.stringify() : array/object -> JSON 변환
-  // JSON.parse() : JSON -> arrat/object
-
+  // 초기 localStorage 셋팅
+  // 이미 watched 항목이 존재하면 setItem() 하지 말기
+  useEffect(()=>{
+    localStorage.getItem('watched') == null ? localStorage.setItem('watched', JSON.stringify([])) : null
+  }, [])
   
   let [shoes, setShoes] = useState(data);
   let navigate = useNavigate();  // 1. 페이지 이동을 도와주는 useNavigate();
