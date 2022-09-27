@@ -50,6 +50,10 @@ function App() {
             {/* 페이지 앞, 뒤로가기 : navigate(1), navigate(-1)  */}
             <Nav.Link onClick={() => { navigate('/home') }}>Home</Nav.Link>
             <Nav.Link onClick={() => { navigate('/cart') }}>Cart</Nav.Link>
+            <Nav.Link onClick={() => { navigate('/detail/0') }}>Detail0</Nav.Link>
+            <Nav.Link onClick={() => { navigate('/detail/1') }}>Detail1</Nav.Link>
+            <Nav.Link onClick={() => { navigate('/detail/2') }}>Detail2</Nav.Link>
+            <Nav.Link onClick={() => { navigate('/detail/3') }}>Detail3</Nav.Link>
           </Nav>
         </Container>
       </Navbar>

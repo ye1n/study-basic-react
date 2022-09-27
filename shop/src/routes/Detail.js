@@ -38,16 +38,16 @@ let YellowBtn = styled.button`
 
 function Detail(props) {
 
-    useEffect(()=>{
-        let list = localStorage.getItem('watched')
-        list = JSON.parse(list)
-        list.push(찾은상품.id)
+    // useEffect(()=>{
+    //     let list = localStorage.getItem('watched')
+    //     list = JSON.parse(list)
+    //     list.push(찾은상품.id)
 
-        //Set으로 바꿨다가 다시 array로 만들기
-        list = new Set(list)
-        list = Array.from(list)
-        localStorage.setItem('watched', JSON.stringify(list))
-    }, [])
+    //     //Set으로 바꿨다가 다시 array로 만들기
+    //     list = new Set(list)
+    //     list = Array.from(list)
+    //     localStorage.setItem('watched', JSON.stringify(list))
+    // }, [])
 
     let dispatch = useDispatch();
 
